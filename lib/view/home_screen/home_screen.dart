@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:technaureus_task/view/home_screen/home_screen_tile.dart';
+import 'package:technaureus_task/view/new_order_screen/new_order_screen.dart';
 import 'package:technaureus_task/view/product_screen/product_screen.dart';
+import 'package:technaureus_task/view/return_order_screen/return_order_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -26,8 +28,12 @@ class HomeScreen extends StatelessWidget {
             HomeScreenTile(tapResult: (){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductScreen()));
             }, icon: FontAwesomeIcons.box, title:'Products'),
-            HomeScreenTile(tapResult: (){}, icon: Icons.add_box_outlined, title:'Products'),
-            HomeScreenTile(tapResult: (){}, icon: Icons.keyboard_return, title:'Return Order'),
+            HomeScreenTile(tapResult: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>NewOrderScreen()));
+            }, icon: Icons.add_box_outlined, title:'New Order'),
+            HomeScreenTile(tapResult: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>ReturnOrderScreen()));
+            }, icon: Icons.keyboard_return, title:'Return Order'),
             HomeScreenTile(tapResult: (){}, icon: FontAwesomeIcons.coins, title:'Add Payment'),
             HomeScreenTile(tapResult: (){}, icon: Icons.task, title:'Todays Order'),
             HomeScreenTile(tapResult: (){}, icon: Icons.list_alt_outlined, title:'Todays Summary'),
