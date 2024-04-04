@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:technaureus_task/view/bottom_navigation_bar/bottom_navigation_bar.dart';
 import 'package:technaureus_task/view/home_screen/home_screen.dart';
 
 void main(){
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(),
+      home: BottomNavBar(),
     );
   }
 }
