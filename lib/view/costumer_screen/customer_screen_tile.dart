@@ -55,7 +55,7 @@ class CustomerScreenTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(name,style: TextStyle(fontWeight: FontWeight.bold),),
-                    SizedBox(width: 20,),
+                    SizedBox(width: 30,),
                     Icon(CupertinoIcons.phone_circle,color: Colors.indigo[900],),
                     Icon(FontAwesomeIcons.whatsapp,color: CupertinoColors.systemGreen,),
                   ],

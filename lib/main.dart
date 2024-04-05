@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:technaureus_task/controller/add_to_cart_controller.dart';
 import 'package:technaureus_task/view/bottom_navigation_bar/bottom_navigation_bar.dart';
-import 'package:technaureus_task/view/home_screen/home_screen.dart';
+
 
 void main(){
-runApp(MyApp());
+runApp(
+    ChangeNotifierProvider(create: (BuildContext context) =>AddToCartController(),
+    child: MyApp())
+);
 }
 
 class MyApp extends StatelessWidget {
