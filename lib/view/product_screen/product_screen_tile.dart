@@ -7,17 +7,13 @@ class ProductScreenTile extends StatelessWidget {
   final Image image;
   final String name;
   final String price;
- // final String buttonText;
-  final ontapAdd;
-  final ontapRemove;
+
 
   ProductScreenTile({
     required this.image,
     required this.name,
     required this.price,
-   // required this.buttonText,
-    required this.ontapAdd,
-    required this.ontapRemove,
+
 });
 
   bool showAddbutton=true;

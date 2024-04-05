@@ -14,15 +14,20 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  var index = 0;
+  var currentIndex = 0;
+  late PageController pageController;
 
-  var screens=[
-    HomeScreen(),
-    NewOrderScreen(),
-    CartScreen(),
-    ReturnOrderScreen(),
-    CustomerScreen()
-  ];
+  @override
+  void initState() {
+    pageController=PageController(initialPage: currentIndex);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,22 +47,37 @@ class _BottomNavBarState extends State<BottomNavBar> {
         child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             selectedItemColor: Colors.indigo[900],
-            currentIndex: index,
+            currentIndex: currentIndex,
             onTap: (tapedIndex) {
               setState(() {
-                index = tapedIndex;
+                currentIndex = tapedIndex;
+                pageController.animateToPage(tapedIndex, duration: Duration(milliseconds:300 ), curve: Curves.easeOut);
               });
             },
             items: [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.box),label: 'New Oreder'),
+              BottomNavigationBarItem(icon: Icon(Icons.add_box_outlined),label: 'New Oreder'),
               BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.cartPlus),label: 'Cart'),
               BottomNavigationBarItem(icon: Icon(Icons.keyboard_return),label: 'Return Order'),
               BottomNavigationBarItem(icon: Icon(Icons.groups),label: 'Customers'),
 
             ]),
       ),
-      body: screens[index],
+     body: PageView(
+       controller: pageController,
+       onPageChanged: (index){
+         setState(() {
+           currentIndex=index;
+         });
+       },
+       children: [
+         HomeScreen(),
+         NewOrderScreen(),
+         CartScreen(),
+         ReturnOrderScreen(),
+         CustomerScreen()
+       ],
+     ),
     );
   }
 }

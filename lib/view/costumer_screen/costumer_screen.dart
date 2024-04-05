@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:technaureus_task/view/bottom_navigation_bar/bottom_navigation_bar.dart';
+import 'package:technaureus_task/view/costumer_screen/bottom_sheet.dart';
 import 'package:technaureus_task/view/costumer_screen/customer_screen_tile.dart';
 
 class CustomerScreen extends StatelessWidget {
-
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,17 @@ class CustomerScreen extends StatelessWidget {
               dueAmnt: '500');
         },
       ),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+       showModalBottomSheet(
+         isScrollControlled: true,
+         context: context, builder: (context) {
+
+         return Padding(
+           padding:  EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+           child: ShowBottomSheet(),
+         );
+       },);
+      }),
     );
   }
 }
