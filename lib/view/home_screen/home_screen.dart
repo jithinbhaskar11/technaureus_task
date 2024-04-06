@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:technaureus_task/view/costumer_screen/costumer_screen.dart';
-import 'package:technaureus_task/view/home_screen/home_screen_tile.dart';
+import 'package:technaureus_task/view/home_screen/widgets/home_screen_tile.dart';
 import 'package:technaureus_task/view/new_order_screen/new_order_screen.dart';
 import 'package:technaureus_task/view/product_screen/product_screen.dart';
 import 'package:technaureus_task/view/return_order_screen/return_order_screen.dart';

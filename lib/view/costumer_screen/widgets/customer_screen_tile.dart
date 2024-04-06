@@ -7,14 +7,18 @@ class CustomerScreenTile extends StatelessWidget {
   final Image image;
   final String name;
   final String id;
-  final String location;
+  final String street;
+  final String streetTwo;
+  final String city;
   final String dueAmnt;
 
   CustomerScreenTile({
     required this.image,
     required this.name,
     required this.id ,
-    required this.location,
+    required this.street,
+    required this.streetTwo,
+    required this.city,
     required this.dueAmnt,
 });
 
@@ -57,11 +61,17 @@ class CustomerScreenTile extends StatelessWidget {
                     Text(name,style: TextStyle(fontWeight: FontWeight.bold),),
                     SizedBox(width: 30,),
                     Icon(CupertinoIcons.phone_circle,color: Colors.indigo[900],),
-                    Icon(FontAwesomeIcons.whatsapp,color: CupertinoColors.systemGreen,),
+                    Icon(FontAwesomeIcons.whatsapp,color: CupertinoColors.systemGreen,)
                   ],
                 ),
                 Text('ID : $id'),
-                Text(location,),
+                Row(
+                  children: [
+                    Text('$street,',),
+                    Text('$streetTwo,'),
+                    Text(city)
+                  ],
+                ),
                 Row(
                   children: [
                     Text('Due Amount : ',style: TextStyle(fontWeight: FontWeight.bold),),

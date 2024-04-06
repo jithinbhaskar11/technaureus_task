@@ -1,25 +1,53 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:technaureus_task/controller/customer_contrroller.dart';
 import 'package:technaureus_task/view/bottom_navigation_bar/bottom_navigation_bar.dart';
-import 'package:technaureus_task/view/costumer_screen/bottom_sheet.dart';
-import 'package:technaureus_task/view/costumer_screen/customer_screen_tile.dart';
+import 'package:technaureus_task/view/costumer_screen/widgets/bottom_sheet.dart';
+import 'package:technaureus_task/view/costumer_screen/widgets/customer_screen_tile.dart';
 
-class CustomerScreen extends StatelessWidget {
+class CustomerScreen extends StatefulWidget {
+
+  @override
+  State<CustomerScreen> createState() => _CustomerScreenState();
+}
+
+class _CustomerScreenState extends State<CustomerScreen> {
+
+  CustomerController customerController=CustomerController();
+
+  @override
+  void initState() {
+    fetchData();
+    super.initState();
+  }
+
+  Future fetchData()async{
+    await customerController.getData();
+    setState(() {
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-        itemCount: 4,
-        itemBuilder: (context, index) {
-          return CustomerScreenTile(
-              image: Image.network(
-                  'https://media.istockphoto.com/id/495878092/photo/red-apple.jpg?s=612x612&w=is&k=20&c=Sk_yWeuwtke-b-CSX6X9xs65e4PU2SstgabsCTXYXU8='),
-              name: 'Nesto supermarket',
-              id: '5158555',
-              location: 'Kakkanad,ernakulam,keraka',
-              dueAmnt: '500');
-        },
+      appBar: AppBar(),
+      body: Consumer<CustomerController>(
+        builder: (context, value, child) => ListView.builder(
+          itemCount: customerController.modelObj?.data?.length,
+          itemBuilder: (context, index) {
+            return CustomerScreenTile(
+                image: Image.network(
+                    customerController.modelObj?.data?[index].profilePic.toString()?? ''),
+                name: customerController.modelObj?.data?[index].name ?? '',
+                id: customerController.modelObj?.data?[index].id.toString() ?? '',
+                street: customerController.modelObj?.data?[index].street ?? '',
+                streetTwo: customerController.modelObj?.data?[index].streetTwo ?? '',
+               city : customerController.modelObj?.data?[index].city ?? '',
+                dueAmnt:'₹500' );
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(onPressed: (){
        showModalBottomSheet(

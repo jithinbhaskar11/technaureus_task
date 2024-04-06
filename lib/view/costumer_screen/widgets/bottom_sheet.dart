@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:technaureus_task/view/costumer_screen/text_feild.dart';
+import 'package:technaureus_task/view/costumer_screen/widgets/text_feild.dart';
 
 class ShowBottomSheet extends StatelessWidget {
   final textStyle = TextStyle(color: Colors.grey, fontWeight: FontWeight.bold);
@@ -121,9 +121,15 @@ class ShowBottomSheet extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              'Country',
-                              style: textStyle,
+                            Row(
+                              children: [
+                                Text(
+                                  'Country',
+                                  style: textStyle,
+                                ),
+                                SizedBox(width: 80,),
+                                Icon(Icons.keyboard_arrow_down,color: Colors.grey,)
+                              ],
                             ),
                           ],
                         ),
@@ -149,9 +155,9 @@ class ShowBottomSheet extends StatelessWidget {
                         child: TxtFeild(textEditingController: street2),
                       ),
 
-                      ///city
+                      ///pimcode
                       Text(
-                        'City',
+                        'Pin Code',
                         style: textStyle,
                         textAlign: TextAlign.start,
                       ),
@@ -160,13 +166,19 @@ class ShowBottomSheet extends StatelessWidget {
                         child: TxtFeild(textEditingController: pincode),
                       ),
 
-                      ///country
+                      ///state
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'Country',
-                            style: textStyle,
+                          Row(
+                            children: [
+                              Text(
+                                'State',
+                                style: textStyle,
+                              ),
+                              SizedBox(width: 80,),
+                              Icon(Icons.keyboard_arrow_down,color: Colors.grey,)
+                            ],
                           ),
                         ],
                       ),

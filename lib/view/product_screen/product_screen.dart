@@ -1,11 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:technaureus_task/controller/add_to_cart_controller.dart';
-import 'package:technaureus_task/view/bottom_navigation_bar/bottom_navigation_bar.dart';
-import 'package:technaureus_task/view/product_screen/product_screen_tile.dart';
+import 'package:technaureus_task/controller/product_controller.dart';
+import 'package:technaureus_task/view/product_screen/widgets/product_screen_tile.dart';
 
-class ProductScreen extends StatelessWidget {
+class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
+
+  @override
+  State<ProductScreen> createState() => _ProductScreenState();
+}
+
+class _ProductScreenState extends State<ProductScreen> {
+
+  ProductController productController=ProductController();
+
+  @override
+  void initState() {
+    fetchData();
+    super.initState();
+  }
+
+  Future fetchData()async{
+    await productController.getData();
+    setState(() {
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,21 +36,25 @@ class ProductScreen extends StatelessWidget {
           IconButton(onPressed: (){}, icon: Icon(Icons.search_rounded))
         ],
       ),
-      body: GridView.builder(
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        itemCount: 4,
-        itemBuilder: (context, index) {
-          return ChangeNotifierProvider(
-            create: (BuildContext context) =>AddToCartController(),
-            child: ProductScreenTile(
-                image: Image.network(
-                    'https://media.istockphoto.com/id/670941496/photo/apple-groves-sunshine-at-japan.jpg?s=2048x2048&w=is&k=20&c=Ru4IssicsMcoCwDuSEI9j2tyTr4hzL4hq5CYJxhHHOU='),
-                name: 'Apple',
-                price: '100',
-               ),
-          );
-        },
+      body: Consumer<ProductController>(
+        builder: (context, value, child) =>
+         GridView.builder(
+          gridDelegate:
+              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          itemCount: productController.modelObj?.data?.length,
+          itemBuilder: (context, index) {
+            return ChangeNotifierProvider(
+              create: (BuildContext context) =>AddToCartController(),
+              child: ProductScreenTile(
+                  image:Image.network(
+                    productController.modelObj?.data?[index].image ?? ''
+                  ),
+                  name: productController.modelObj?.data?[index].name ?? '',
+                  price: productController.modelObj?.data?[index].price.toString() ?? '',
+                 ),
+            );
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(onPressed: (){},child: Icon(Icons.edit,color: Colors.white,),backgroundColor: Colors.indigo[900],),
     );
