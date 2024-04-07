@@ -4,13 +4,15 @@ import 'package:technaureus_task/controller/add_to_cart_controller.dart';
 
 class ProductScreenTile extends StatelessWidget {
 
-  final Image image;
+  //final Image image;
+  final String imageUrl;
   final String name;
   final String price;
 
 
   ProductScreenTile({
-    required this.image,
+    //required this.image,
+    required this.imageUrl,
     required this.name,
     required this.price,
 
@@ -41,7 +43,10 @@ class ProductScreenTile extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(horizontal: double.infinity,vertical: 60),
               decoration: BoxDecoration(
-                image: DecorationImage(image:image.image,fit: BoxFit.cover),
+                image: DecorationImage(
+                   // image:image.image,fit: BoxFit.cover
+                  image: NetworkImage(imageUrl),fit: BoxFit.cover
+                ),
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(15),topRight: Radius.circular(15))
               ),
             ),

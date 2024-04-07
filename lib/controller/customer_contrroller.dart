@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:technaureus_task/model/customer_model.dart';
+import 'package:technaureus_task/model/customer_search_model.dart';
 
 
 class CustomerController extends ChangeNotifier{

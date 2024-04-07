@@ -32,40 +32,75 @@ class _ProductScreenState extends State<ProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Nesto Hypermarket',style: TextStyle(fontWeight: FontWeight.bold),),
+        centerTitle: true,
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.search_rounded))
+          Icon(Icons.menu)
         ],
       ),
-      body: Consumer<ProductController>(
-        builder: (context, value, child) {
-
-          if(productController.isLoading){
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }else
-
-         return GridView.builder(
-            gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-            itemCount: productController.modelObj?.data?.length,
-            itemBuilder: (context, index) {
-              return ChangeNotifierProvider(
-                create: (BuildContext context) => AddToCartController(),
-                child: ProductScreenTile(
-                  image: Image.network(
-                     // productController.modelObj?.data?[index].image ?? '' //image not laoding, throwing exception.
-                    'https://media.istockphoto.com/id/495878092/photo/red-apple.jpg?s=2048x2048&w=is&k=20&c=h5O9g4fUlBX1FXpPb6cS7dRdOK8zQ_ykusslGp9C80M='
-                  ),
-                  name: productController.modelObj?.data?[index].name ?? '',
-                  price: productController.modelObj?.data?[index].price
-                      .toString() ?? '',
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30)
                 ),
-              );
-            },
-          );
+                prefixIcon: Icon(Icons.search_rounded),
+                suffixIcon: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Icon(Icons.qr_code,color: Colors.grey,),
+                   SizedBox(width: 5,),
+                   Container(
+                     height: 20,
+                     width: 1,
+                     color: Colors.black,
+                   ),
+                    SizedBox(width: 5,),
+                    Text('Fruits',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),),
+                    Icon(Icons.keyboard_arrow_down,color: Colors.grey,)
+                    //VerticalDivider(thickness: 2,width: 10,)
+                  ],
+                )
+              ),
+              
+            ),
+          ),
+          
+          Consumer<ProductController>(
+            builder: (context, value, child) {
 
-        }
+              if(productController.isLoading){
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }else
+
+             return Expanded(
+               child: GridView.builder(
+                  gridDelegate:
+                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                  itemCount: productController.modelObj?.data?.length,
+                  itemBuilder: (context, index) {
+                    return ChangeNotifierProvider(
+                      create: (BuildContext context) => AddToCartController(),
+                      child: ProductScreenTile(
+                        imageUrl: 'https://media.istockphoto.com/id/185071735/photo/red-apple-with-droplet.jpg?s=2048x2048&w=is&k=20&c=AiO32-xKn5DXk5ZU7tQjOAtvRAqV1pZ2uofvMbJLGgE=',
+                        // imageUrl: productController.modelObj?.data?[index].image??'',
+                        name: productController.modelObj?.data?[index].name ?? '',
+                        price: productController.modelObj?.data?[index].price
+                            .toString() ?? '',
+                      ),
+                    );
+                  },
+                ),
+             );
+
+            }
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(onPressed: (){},child: Icon(Icons.edit,color: Colors.white,),backgroundColor: Colors.indigo[900],),
     );
