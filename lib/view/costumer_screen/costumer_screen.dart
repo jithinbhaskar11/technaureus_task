@@ -34,20 +34,38 @@ class _CustomerScreenState extends State<CustomerScreen> {
     return Scaffold(
       appBar: AppBar(),
       body: Consumer<CustomerController>(
-        builder: (context, value, child) => ListView.builder(
-          itemCount: customerController.modelObj?.data?.length,
-          itemBuilder: (context, index) {
-            return CustomerScreenTile(
-                image: Image.network(
-                    customerController.modelObj?.data?[index].profilePic.toString()?? ''),
-                name: customerController.modelObj?.data?[index].name ?? '',
-                id: customerController.modelObj?.data?[index].id.toString() ?? '',
-                street: customerController.modelObj?.data?[index].street ?? '',
-                streetTwo: customerController.modelObj?.data?[index].streetTwo ?? '',
-               city : customerController.modelObj?.data?[index].city ?? '',
-                dueAmnt:'₹500' );
-          },
-        ),
+        builder: (context, value, child) {
+
+          if(customerController.isLoading){
+            return Center(child: CircularProgressIndicator());
+          }else
+
+
+           return ListView.builder(
+            itemCount: customerController.modelObj?.data?.length,
+            itemBuilder: (context, index) {
+              //return
+
+
+              return CustomerScreenTile(
+                  image: Image.network(
+                      // customerController.modelObj?.data?[index].profilePic //image not loading, throwing exception.
+                      //     .toString() ?? ''
+                    'https://media.istockphoto.com/id/1129342452/photo/portrait-of-cheerful-young-manager-handshake-with-new-employee.jpg?s=2048x2048&w=is&k=20&c=AH2VkYE1MAvyXv_Exl1-OmqfNkeaUktLBeeD_IhIRUQ='
+                  ),
+                  name: customerController.modelObj?.data?[index].name ?? '',
+                  id: customerController.modelObj?.data?[index].id.toString() ??
+                      '',
+                  street: customerController.modelObj?.data?[index].street ??
+                      '',
+                  streetTwo: customerController.modelObj?.data?[index]
+                      .streetTwo ?? '',
+                  city: customerController.modelObj?.data?[index].city ?? '',
+                  dueAmnt: '₹500');
+            },
+          );
+
+        }
       ),
       floatingActionButton: FloatingActionButton(onPressed: (){
        showModalBottomSheet(

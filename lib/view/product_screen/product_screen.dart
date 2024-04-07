@@ -37,24 +37,35 @@ class _ProductScreenState extends State<ProductScreen> {
         ],
       ),
       body: Consumer<ProductController>(
-        builder: (context, value, child) =>
-         GridView.builder(
-          gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-          itemCount: productController.modelObj?.data?.length,
-          itemBuilder: (context, index) {
-            return ChangeNotifierProvider(
-              create: (BuildContext context) =>AddToCartController(),
-              child: ProductScreenTile(
-                  image:Image.network(
-                    productController.modelObj?.data?[index].image ?? ''
+        builder: (context, value, child) {
+
+          if(productController.isLoading){
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }else
+
+         return GridView.builder(
+            gridDelegate:
+            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            itemCount: productController.modelObj?.data?.length,
+            itemBuilder: (context, index) {
+              return ChangeNotifierProvider(
+                create: (BuildContext context) => AddToCartController(),
+                child: ProductScreenTile(
+                  image: Image.network(
+                     // productController.modelObj?.data?[index].image ?? '' //image not laoding, throwing exception.
+                    'https://media.istockphoto.com/id/495878092/photo/red-apple.jpg?s=2048x2048&w=is&k=20&c=h5O9g4fUlBX1FXpPb6cS7dRdOK8zQ_ykusslGp9C80M='
                   ),
                   name: productController.modelObj?.data?[index].name ?? '',
-                  price: productController.modelObj?.data?[index].price.toString() ?? '',
-                 ),
-            );
-          },
-        ),
+                  price: productController.modelObj?.data?[index].price
+                      .toString() ?? '',
+                ),
+              );
+            },
+          );
+
+        }
       ),
       floatingActionButton: FloatingActionButton(onPressed: (){},child: Icon(Icons.edit,color: Colors.white,),backgroundColor: Colors.indigo[900],),
     );
