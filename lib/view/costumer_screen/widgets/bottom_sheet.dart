@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:technaureus_task/view/costumer_screen/widgets/text_feild.dart';
 
+import '../../../controller/customer_contrroller.dart';
+
 class ShowBottomSheet extends StatelessWidget {
   final textStyle = TextStyle(color: Colors.grey, fontWeight: FontWeight.bold);
   final customerName = TextEditingController();
@@ -13,6 +15,8 @@ class ShowBottomSheet extends StatelessWidget {
   final street2 = TextEditingController();
   final pincode = TextEditingController();
   final state = TextEditingController();
+
+  CustomerController customerController = CustomerController();
 
   @override
   Widget build(BuildContext context) {
@@ -127,8 +131,13 @@ class ShowBottomSheet extends StatelessWidget {
                                   'Country',
                                   style: textStyle,
                                 ),
-                                SizedBox(width: 80,),
-                                Icon(Icons.keyboard_arrow_down,color: Colors.grey,)
+                                SizedBox(
+                                  width: 80,
+                                ),
+                                Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: Colors.grey,
+                                )
                               ],
                             ),
                           ],
@@ -176,8 +185,13 @@ class ShowBottomSheet extends StatelessWidget {
                                 'State',
                                 style: textStyle,
                               ),
-                              SizedBox(width: 80,),
-                              Icon(Icons.keyboard_arrow_down,color: Colors.grey,)
+                              SizedBox(
+                                width: 80,
+                              ),
+                              Icon(
+                                Icons.keyboard_arrow_down,
+                                color: Colors.grey,
+                              )
                             ],
                           ),
                         ],
@@ -194,14 +208,36 @@ class ShowBottomSheet extends StatelessWidget {
               ///submit
               Center(
                   child: MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  customerController.addData(
+                    name: customerName.text,
+                    mob: phoneNum.text,
+                    email: email.text,
+                    street: street.text,
+                    street2: street2.text,
+                    city: city.text,
+                    pincode: pincode.text,
+                    state: state.text,
+                    country: country.text,
+                  );
+                  customerName.clear();
+                  phoneNum.clear();
+                  email.clear();
+                  street.clear();
+                  street2.clear();
+                  city.clear();
+                  pincode.clear();
+                  state.clear();
+                  country.clear();
+                  Navigator.pop(context);
+                },
                 child: Text(
                   'Submit',
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 shape: StadiumBorder(),
-                    color: Colors.indigo[900],
+                color: Colors.indigo[900],
               ))
             ],
           ),

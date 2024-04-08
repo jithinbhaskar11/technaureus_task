@@ -19,7 +19,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   void initState() {
-    pageController=PageController(initialPage: currentIndex);
+    pageController = PageController(initialPage: currentIndex);
     super.initState();
   }
 
@@ -33,7 +33,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
                 topRight: Radius.circular(30), topLeft: Radius.circular(30)),
@@ -51,33 +51,39 @@ class _BottomNavBarState extends State<BottomNavBar> {
             onTap: (tapedIndex) {
               setState(() {
                 currentIndex = tapedIndex;
-                pageController.animateToPage(tapedIndex, duration: Duration(milliseconds:300 ), curve: Curves.easeOut);
+                pageController.animateToPage(tapedIndex,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOut);
               });
             },
             items: [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(icon: Icon(Icons.add_box_outlined),label: 'New Oreder'),
-              BottomNavigationBarItem(icon: Icon(FontAwesomeIcons.cartPlus),label: 'Cart'),
-              BottomNavigationBarItem(icon: Icon(Icons.keyboard_return),label: 'Return Order'),
-              BottomNavigationBarItem(icon: Icon(Icons.groups),label: 'Customers'),
-
+              const BottomNavigationBarItem(
+                  icon: Icon(Icons.home), label: 'Home'),
+              const BottomNavigationBarItem(
+                  icon: Icon(Icons.add_box_outlined), label: 'New Oreder'),
+              const BottomNavigationBarItem(
+                  icon: Icon(FontAwesomeIcons.cartPlus), label: 'Cart'),
+              const BottomNavigationBarItem(
+                  icon: Icon(Icons.keyboard_return), label: 'Return Order'),
+              const BottomNavigationBarItem(
+                  icon: Icon(Icons.groups), label: 'Customers'),
             ]),
       ),
-     body: PageView(
-       controller: pageController,
-       onPageChanged: (index){
-         setState(() {
-           currentIndex=index;
-         });
-       },
-       children: [
-         HomeScreen(),
-         NewOrderScreen(),
-         CartScreen(),
-         ReturnOrderScreen(),
-         CustomerScreen()
-       ],
-     ),
+      body: PageView(
+        controller: pageController,
+        onPageChanged: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        children: [
+          const HomeScreen(),
+          const NewOrderScreen(),
+          const CartScreen(),
+          const ReturnOrderScreen(),
+          CustomerScreen()
+        ],
+      ),
     );
   }
 }

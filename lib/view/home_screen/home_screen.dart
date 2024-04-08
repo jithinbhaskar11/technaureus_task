@@ -13,34 +13,64 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: CircleAvatar(child: Icon(Icons.person)),
-        actions: [
-          Icon(Icons.menu)
-        ],
+        leading: const CircleAvatar(child: Icon(Icons.person)),
+        actions: [const Icon(Icons.menu)],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GridView.count(
-            crossAxisCount: 2,
+          crossAxisCount: 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 15,
           children: [
-            HomeScreenTile(tapResult: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>CustomerScreen()));
-            }, icon: Icons.groups, title:'Customers'),
-            HomeScreenTile(tapResult: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductScreen()));
-            }, icon: FontAwesomeIcons.box, title:'Products'),
-            HomeScreenTile(tapResult: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>NewOrderScreen()));
-            }, icon: Icons.add_box_outlined, title:'New Order'),
-            HomeScreenTile(tapResult: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>ReturnOrderScreen()));
-            }, icon: Icons.keyboard_return, title:'Return Order'),
-            HomeScreenTile(tapResult: (){}, icon: FontAwesomeIcons.coins, title:'Add Payment'),
-            HomeScreenTile(tapResult: (){}, icon: Icons.task, title:'Todays Order'),
-            HomeScreenTile(tapResult: (){}, icon: Icons.list_alt_outlined, title:'Todays Summary'),
-            HomeScreenTile(tapResult: (){}, icon: FontAwesomeIcons.route, title:'Route'),
+            HomeScreenTile(
+                tapResult: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CustomerScreen()));
+                },
+                icon: Icons.groups,
+                title: 'Customers'),
+            HomeScreenTile(
+                tapResult: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ProductScreen()));
+                },
+                icon: FontAwesomeIcons.box,
+                title: 'Products'),
+            HomeScreenTile(
+                tapResult: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const NewOrderScreen()));
+                },
+                icon: Icons.add_box_outlined,
+                title: 'New Order'),
+            HomeScreenTile(
+                tapResult: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ReturnOrderScreen()));
+                },
+                icon: Icons.keyboard_return,
+                title: 'Return Order'),
+            HomeScreenTile(
+                tapResult: () {},
+                icon: FontAwesomeIcons.coins,
+                title: 'Add Payment'),
+            HomeScreenTile(
+                tapResult: () {}, icon: Icons.task, title: 'Todays Order'),
+            HomeScreenTile(
+                tapResult: () {},
+                icon: Icons.list_alt_outlined,
+                title: 'Todays Summary'),
+            HomeScreenTile(
+                tapResult: () {}, icon: FontAwesomeIcons.route, title: 'Route'),
           ],
         ),
       ),

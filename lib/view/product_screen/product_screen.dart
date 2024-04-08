@@ -12,8 +12,7 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
-
-  ProductController productController=ProductController();
+  ProductController productController = ProductController();
 
   @override
   void initState() {
@@ -21,22 +20,21 @@ class _ProductScreenState extends State<ProductScreen> {
     super.initState();
   }
 
-  Future fetchData()async{
+  Future fetchData() async {
     await productController.getData();
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Nesto Hypermarket',style: TextStyle(fontWeight: FontWeight.bold),),
+        title: const Text(
+          'Nesto Hypermarket',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
-        actions: [
-          Icon(Icons.menu)
-        ],
+        actions: [const Icon(Icons.menu)],
       ),
       body: Column(
         children: [
@@ -44,65 +42,81 @@ class _ProductScreenState extends State<ProductScreen> {
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30)
-                ),
-                prefixIcon: Icon(Icons.search_rounded),
-                suffixIcon: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Icon(Icons.qr_code,color: Colors.grey,),
-                   SizedBox(width: 5,),
-                   Container(
-                     height: 20,
-                     width: 1,
-                     color: Colors.black,
-                   ),
-                    SizedBox(width: 5,),
-                    Text('Fruits',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.bold),),
-                    Icon(Icons.keyboard_arrow_down,color: Colors.grey,)
-                    //VerticalDivider(thickness: 2,width: 10,)
-                  ],
-                )
-              ),
-              
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  prefixIcon: const Icon(Icons.search_rounded),
+                  suffixIcon: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const Icon(
+                        Icons.qr_code,
+                        color: Colors.grey,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                        height: 20,
+                        width: 1,
+                        color: Colors.black,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      const Text(
+                        'Fruits',
+                        style: TextStyle(
+                            color: Colors.grey, fontWeight: FontWeight.bold),
+                      ),
+                      const Icon(
+                        Icons.keyboard_arrow_down,
+                        color: Colors.grey,
+                      )
+                      //VerticalDivider(thickness: 2,width: 10,)
+                    ],
+                  )),
             ),
           ),
-          
-          Consumer<ProductController>(
-            builder: (context, value, child) {
-
-              if(productController.isLoading){
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }else
-
-             return Expanded(
-               child: GridView.builder(
-                  gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          Consumer<ProductController>(builder: (context, value, child) {
+            if (productController.isLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return Expanded(
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
                   itemCount: productController.modelObj?.data?.length,
                   itemBuilder: (context, index) {
                     return ChangeNotifierProvider(
                       create: (BuildContext context) => AddToCartController(),
                       child: ProductScreenTile(
-                        imageUrl: 'https://media.istockphoto.com/id/185071735/photo/red-apple-with-droplet.jpg?s=2048x2048&w=is&k=20&c=AiO32-xKn5DXk5ZU7tQjOAtvRAqV1pZ2uofvMbJLGgE=',
+                        imageUrl:
+                            'https://media.istockphoto.com/id/185071735/photo/red-apple-with-droplet.jpg?s=2048x2048&w=is&k=20&c=AiO32-xKn5DXk5ZU7tQjOAtvRAqV1pZ2uofvMbJLGgE=',
                         // imageUrl: productController.modelObj?.data?[index].image??'',
-                        name: productController.modelObj?.data?[index].name ?? '',
+                        name:
+                            productController.modelObj?.data?[index].name ?? '',
                         price: productController.modelObj?.data?[index].price
-                            .toString() ?? '',
+                                .toString() ??
+                            '',
                       ),
                     );
                   },
                 ),
-             );
-
+              );
             }
-          ),
+          }),
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: (){},child: Icon(Icons.edit,color: Colors.white,),backgroundColor: Colors.indigo[900],),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(
+          Icons.edit,
+          color: Colors.white,
+        ),
+        backgroundColor: Colors.indigo[900],
+      ),
     );
   }
 }

@@ -7,14 +7,12 @@ import 'package:technaureus_task/view/costumer_screen/widgets/bottom_sheet.dart'
 import 'package:technaureus_task/view/costumer_screen/widgets/customer_screen_tile.dart';
 
 class CustomerScreen extends StatefulWidget {
-
   @override
   State<CustomerScreen> createState() => _CustomerScreenState();
 }
 
 class _CustomerScreenState extends State<CustomerScreen> {
-
-  CustomerController customerController=CustomerController();
+  CustomerController customerController = CustomerController();
 
   @override
   void initState() {
@@ -22,26 +20,24 @@ class _CustomerScreenState extends State<CustomerScreen> {
     super.initState();
   }
 
-  Future fetchData()async{
+  Future fetchData() async {
     await customerController.getData();
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Customers',style: TextStyle(fontWeight: FontWeight.bold),),
+        title: const Text(
+          'Customers',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
-        actions: [
-          Icon(Icons.menu)
-        ],
+        actions: [const Icon(Icons.menu)],
       ),
       body: Column(
         children: [
-
           ///search
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -50,64 +46,70 @@ class _CustomerScreenState extends State<CustomerScreen> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                prefixIcon: Icon(Icons.search_rounded),
+                prefixIcon: const Icon(Icons.search_rounded),
                 suffixIcon: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Icon(CupertinoIcons.qrcode),
-                    IconButton(onPressed: (){
-                      showModalBottomSheet(
-                        isScrollControlled: true,
-                        context: context, builder: (context) {
-
-                        return Padding(
-                          padding:  EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-                          child: ShowBottomSheet(),
-                        );
-                      },);
-                    }, icon: Icon(Icons.add_circle_outlined,color: Colors.indigo[900],))
+                    const Icon(CupertinoIcons.qrcode),
+                    IconButton(
+                        onPressed: () {
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            context: context,
+                            builder: (context) {
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                    bottom: MediaQuery.of(context)
+                                        .viewInsets
+                                        .bottom),
+                                child: ShowBottomSheet(),
+                              );
+                            },
+                          );
+                        },
+                        icon: Icon(
+                          Icons.add_circle_outlined,
+                          color: Colors.indigo[900],
+                        ))
                   ],
                 ),
               ),
             ),
           ),
 
-
-          Consumer<CustomerController>(
-            builder: (context, value, child) {
-
-              if(customerController.isLoading){
-                return Center(child: CircularProgressIndicator());
-              }else
-
-               return Expanded(
-                 child: ListView.builder(
+          Consumer<CustomerController>(builder: (context, value, child) {
+            if (customerController.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else
+              return Expanded(
+                child: ListView.builder(
                   itemCount: customerController.modelObj?.data?.length,
                   itemBuilder: (context, index) {
                     //return
-
 
                     return CustomerScreenTile(
                         image: Image.network(
                             // customerController.modelObj?.data?[index].profilePic //image not loading, throwing exception.
                             //     .toString() ?? ''
-                          'https://media.istockphoto.com/id/1129342452/photo/portrait-of-cheerful-young-manager-handshake-with-new-employee.jpg?s=2048x2048&w=is&k=20&c=AH2VkYE1MAvyXv_Exl1-OmqfNkeaUktLBeeD_IhIRUQ='
-                        ),
-                        name: customerController.modelObj?.data?[index].name ?? '',
-                        id: customerController.modelObj?.data?[index].id.toString() ??
+                            'https://media.istockphoto.com/id/1129342452/photo/portrait-of-cheerful-young-manager-handshake-with-new-employee.jpg?s=2048x2048&w=is&k=20&c=AH2VkYE1MAvyXv_Exl1-OmqfNkeaUktLBeeD_IhIRUQ='),
+                        name: customerController.modelObj?.data?[index].name ??
                             '',
-                        street: customerController.modelObj?.data?[index].street ??
+                        id: customerController.modelObj?.data?[index].id
+                                .toString() ??
                             '',
-                        streetTwo: customerController.modelObj?.data?[index]
-                            .streetTwo ?? '',
-                        city: customerController.modelObj?.data?[index].city ?? '',
+                        street:
+                            customerController.modelObj?.data?[index].street ??
+                                '',
+                        streetTwo: customerController
+                                .modelObj?.data?[index].streetTwo ??
+                            '',
+                        city: customerController.modelObj?.data?[index].city ??
+                            '',
                         dueAmnt: '₹500');
                   },
-                               ),
-               );
-
-            }
-          ),
+                ),
+              );
+          }),
         ],
       ),
     );

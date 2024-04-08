@@ -9,7 +9,9 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Icon(
-          FontAwesomeIcons.cartPlus,size: 100,color: Colors.indigo.withOpacity(0.9),
+          FontAwesomeIcons.cartPlus,
+          size: 100,
+          color: Colors.indigo.withOpacity(0.9),
         ),
       ),
     );
